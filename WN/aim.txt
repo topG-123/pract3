@@ -1,0 +1,25 @@
+prac 1
+Configuring WEP on a Wireless Router
+
+prac 2
+Demonstrating Distribution Layer Functions
+
+prac3
+Placing ACLs/configure Wireless Lan 
+controller
+
+parc 4
+Planning Network-based Firewalls
+
+prac 5
+Creating an Ad hoc Network
+
+prac 6
+Configuring Basic AP Settings
+
+prac 7
+Configure Ethernet/Fast Ethernet Interface
+
+prac 8
+Connect wireless computers to a wireless 
+router
