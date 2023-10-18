@@ -1,0 +1,25 @@
+#Turn On Docker Desktop
+#Prerequisite	
+#fire command in ubuntu
+
+curl --version
+docker --version
+docker-compose --version
+node -v
+npm --version
+python3
+	exit()
+mvn --version
+java --version
+
+git config --global core.longpaths true && git config --global core.autocrlf false
+
+mkdir hyperledger && cd hyperledger
+
+curl -sSL https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/bootstrap.sh| bash -s
+
+cd /hyperledger/fabric-samples/test-network
+
+./network.sh up
+
+./network.sh createChannel

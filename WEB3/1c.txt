@@ -1,0 +1,33 @@
+#Install Node js
+#Save the below code as with .js extensions in different files you will get total three files
+#SAVE IN THIS LOCATION ONLY C:\Users\[System_Name]
+#Run it in CMD using node [File_name.js]
+#Now open browser and open url localhost:8081
+
+#Code 1
+
+var http = require("http");
+
+http.createServer(function(req,res){
+ res.writeHead(200,{'Content-Type':'text/html'});
+ res.end('Hello World');
+}).listen(8081);
+
+Code 2
+
+#Function
+
+exports.myDateTime = function(){
+	return Date();
+};
+
+#Driver Program
+
+var http = require("http");
+var dt = require('./DateTime');
+
+http.createServer(function(req,res){
+ res.writeHead(200,{'Content-Type':'text/html'});
+ res.write("The date and time arte currenly: "+dt.myDateTime());
+ res.end();
+}).listen(8081);

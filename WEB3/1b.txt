@@ -1,0 +1,17 @@
+#open docker hub in chrome and login and create repo
+#go to tags tab
+
+#open https://labs.play-with-docker.com/ and create new instance and start firing below commands
+
+docker --version
+
+docker login --username=[USER_NAME]
+
+docker images
+
+docker pull busybox
+docker pull rocker/verse
+
+docker tag [IMAGE_ID] [USER_NAME]/[REPOSITORY_NAME]:[TAG_NAME]
+
+docker image push [USER_NAME]/[REPOSITORY_NAME]:[TAG_NAME]
