@@ -1,0 +1,40 @@
+mkdir Fabcar && cd Fabcar
+
+curl -sSL https://raw.githubusercontent.com/hyperledger/fabric/main/scripts/bootstrap.sh| bash -s 1.4.4
+ 
+cd fabric-samples/first-network/
+
+./byfn.sh down
+ 
+cd ../fabcar/
+ 
+./startFabric.sh javascript
+ 
+cd javascript && npm install
+ 
+cd javascript && ls
+ 
+node enrollAdmin.js
+ 
+node registerUser.js
+ 
+node query.js
+ 
+cat query.js
+
+nano query.js
+ 
+node invoke.js
+ 
+nano query.js
+ 
+node query.js
+ 
+nano invoke.js
+ 
+node invoke.js
+ 
+node query.js
+ 
+
+
