@@ -1,0 +1,27 @@
+prac 1
+Install and understand Docker container, Node.js, Java and Hyperledger Fabric, Ethereum and perform necessary software installation on local machine/create instance on Cloud to run.
+
+A. Remix IDE
+B. Docker container
+C. Node.js
+
+prac 2
+Create and deploy a block chain network using Hyperledger Fabric SDK for Go
+
+prac 3
+Etherum Blockchain (Private)
+
+prac 4
+Deploy asset transfer app using blockchain and learn app development within Hyperledger fabric network
+
+prac 5
+Car auction network: A Hello World example with Hyperledger Fabric Node SDK and IBM Block chain Starter Plan. Use Hyperledger Fabric to invoke chain code while storing results and data in the starter plan
+
+prac 6
+Develop a decentralized voting application using solidity programming
+
+prac 7
+Create a block chain app for loyalty points with Hyperledger Fabric Ethereum Virtual Machine. Deploy Fabric locally with EVM and create a proxy for interacting with a smart contract through a Node.js web app.
+
+prac 8
+Creating an Account on Metamask
