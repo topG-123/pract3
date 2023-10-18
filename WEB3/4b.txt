@@ -1,0 +1,67 @@
+#Open Remix IDE
+#Click on Contract at left
+#Create 1 file in Contract folder 4_xyz.sol
+#Complie and Deploy
+#scroll Down and open drop down
+#go to google and search for byte32 value (Stack exchange) 
+0x6c00000000000000000000000000000000000000000000000000000000000000
+#Open drop down of create land and paste it in all and press transact
+#SetOwner me wallet ka address daal de
+#transferOwner me new wallet ka address daal de
+
+// SPDX-License-Identifier: MIT
+pragma solidity >= 0.8.2 < 0.9.0 ;
+
+contract Asset {
+    uint256 public owners_count;
+    address public contract_owner;  //Manufacture/owner
+    bytes32 public land_id; //land_id
+    bytes32 public land_sqrfeet; //land_sqrfeet    
+    bytes32 public land_created_date; //Created date
+    mapping (uint256 => address) public owners; //list of owners
+
+    function createland(bytes32 _land_id, bytes32 _land_sqrfeet, bytes32 _land_created_date) public returns(bool){
+        setOwner(msg.sender);
+        land_id = _land_id;
+        land_sqrfeet = _land_sqrfeet;
+        land_created_date = _land_created_date;
+        return true;
+    }
+
+    //Modifier that only allows owner of the bag to Smart Contract AKA Good to use the function
+    modifier onlyOwner() {
+        require(msg.sender == contract_owner);
+        _;
+    }
+
+    //This function transfer ownership of contract form one entity to another 
+    function transferOwnership(address _newOwner) public onlyOwner() {
+        require(_newOwner != address(0));
+        contract_owner = _newOwner;
+    }
+    
+    //Get the previous owner in the mappings
+    function previousOwner() view public returns (address) {
+        if(owners_count != 0) {
+            uint256 previous_owner = owners_count - 1;
+            return owners[previous_owner]; 
+        }
+        return contract_owner;
+     }
+
+    function setOwner(address owner) public {
+        owners_count += 1;
+        owners[owners_count] = owner;
+    }
+
+    function getCurrentOwner() view public returns (address) {
+        return owners[owners_count];
+    }
+
+    function getOwnerCount() view public returns (uint256) {
+        return owners_count;
+    }
+}
+
+
+
