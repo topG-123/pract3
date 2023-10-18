@@ -1,0 +1,94 @@
+#Open Remix IDE and Copy Paste the code and Execute it
+
+
+
+// SPDX-Licence-Identifier : GPL-3.0
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.2 <0.9.0;
+// Smart Contract for the Voting application
+contract VotingForTopper {
+    // Refer to the owner
+    address owner;
+    // Declaring the public variable 'purpose'
+    // to demonstrate the purpose of voting
+    string public Purpose;
+    // Defining structure with boolean
+    // Variables authorized and voted
+    struct Voter{
+        bool authorized;
+        bool voted;
+        }
+    // Declaring the unsigned integer
+    // variables totalVotes, and for the
+    //3 teams - A, B and C
+    uint totalVotes;
+    uint teamA;
+    uint teamB;
+    uint teamC;
+    // Creating a mapping for the total votes
+    mapping (address=>Voter) info;
+    // Defining a constructor indicating the purpose of voting
+    constructor(string memory _name) {
+        Purpose = _name;
+        owner = msg.sender;
+        } 
+    // Defining a modifier to verify the ownership
+    modifier ownerOn() {
+        require(msg.sender==owner);
+    _;
+    }
+    // Defining a function to verify the person is voted or not
+    function Authorize(address _person) ownerOn public {
+        info[_person].authorized= true;
+        }
+    // Defining a function to check and skip the code if the person 
+    // is already voted else allow to vote and calculate totalVotes for team A
+    function Team_A(address _address) public {
+        require(!info[_address].voted,"already voted person");
+        require(info[_address].authorized,"You Have No Right For Vote");
+        info[_address].voted = true;
+        teamA++;
+        totalVotes++;
+        }
+    // Defining a function to check and skip the code if the persojn is already voted
+    // else alloe to vote and calculate totalvotes for team B
+    function Team_B(address _address) public {
+        require(!info[_address].voted,"already voted person");
+        require(info[_address].authorized,"You Have No Right For Vote");
+        info[_address].voted = true;
+        teamB++;
+        totalVotes++;
+        }
+    // Defining a function to check and skip the code if the persojn is already voted
+    // else alloe to vote and calculate totalvotes for team B
+    function Team_C(address _address) public returns(string memory) {
+        require(!info[_address].voted,"already voted person");
+        require(info[_address].authorized,"You Have No Right For Vote");
+        info[_address].voted = true;
+        teamC++;
+        totalVotes++;
+        return("Thanks for Voting");
+        }
+    function Total_Votes() public view returns (uint) {
+        return totalVotes;
+        }
+    // Defining a function to announce the result of voting and 
+    // the name of the winning team\
+    function Result_of_Voting() public view returns (string memory) {
+        if (teamA > teamB) {
+            if (teamA > teamC) {
+                return "A is winning";
+                }
+            else if (teamC > teamA) {
+                return "C is winning";
+                }
+        }
+        else if (teamB > teamC) {
+            return "B is winning";
+            }
+        else if (teamC > teamA && teamC > teamB) {
+        return "C is winning";
+        }
+    return "No One is Winning";
+    }   
+}
