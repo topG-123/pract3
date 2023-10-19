@@ -39,8 +39,8 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 ###Execute below commands on HBase ->
 
 1. create 'test', 'cf'
-2. put 'test', 'row1', 'cf:a', 'Mehul'
-3. put 'test', 'row2', 'cf:b', '04'
+2. put 'test', 'row1', 'cf:a', 'Bob'
+3. put 'test', 'row2', 'cf:b', '01'
 4. put 'test', 'row3', 'cf:c', 'Mumbai'
 5. scan 'test'
 6. exit
