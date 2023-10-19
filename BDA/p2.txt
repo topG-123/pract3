@@ -1,0 +1,61 @@
+###Open cmd and start firing commands
+
+> wsl> mkdir MapReduce
+> cd MapReduce
+> touch word_count_data.txt
+> nano word_count_data.txt
+
+###now paste this code in ubuntu shell -> 
+
+Hello wordcount MapReduce Hadoop program.
+This is my first MapReduce program.
+
+###press Ctrl+X, Shift Y and Enter
+
+> cat word_count_data.txt
+> touch mapper.py
+> nano mapper.py
+
+###now paste this code in ubuntu shell -> 
+
+import sys
+for line in sys.stdin:
+ line = line.strip()
+ words = line.split()
+ for word in words:
+ print('%s\t%s' % (word, 1))
+
+###press Ctrl+X, Shift Y and Enter
+
+> cat word_count_data.txt | python3 mapper.py
+> touch reducer.py
+> nano reducer.py
+
+###now paste this code in ubuntu shell -> 
+
+from operator import itemgetter
+import sys
+current_word = None
+current_count = 0
+word = None
+for line in sys.stdin:
+ line = line.strip()
+ word, count = line.split('\t', 1)
+ try:
+   count = int(count)
+ except ValueError:
+   continue
+ if current_word == word:
+   current_count += count
+ else:
+   if current_word:
+     print('%s\t%s' % (current_word, current_count))
+   current_count = count
+   current_word = word
+if current_word == word:
+ print('%s\t%s' % (current_word, current_count))
+
+###press Ctrl+X, Shift Y and Enter
+
+> cat word_count_data.txt | python3 mapper.py | sort -k1,1 | python3 reducer.py
+
