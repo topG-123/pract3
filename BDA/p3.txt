@@ -1,0 +1,77 @@
+###Open cmd and start firing commands
+
+> wsl
+> cd /home/universal_user
+> sudo nano employees.txt
+
+###Add following details in the employees.txt ->
+
+1-Mark-US-Sales-1800
+2-Ram-India-Developer-2000
+3-shyam-India-Engineer-2500
+4-Ann-UK-Recruiter-1500
+
+###Save “Ctrl S” and exit the file by pressing “Ctrl X”
+
+> cd /usr/local
+> sudo wget https://downloads.apache.org/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
+> sudo tar -xvzf apache-hive-3.1.2-bin.tar.gz
+> sudo mv apache-hive-3.1.2-bin hive
+> ls -l
+> sudo chmod 777 hive
+> ls -l
+> cd /home/universal_user
+> nano .bashrc
+
+###now paste this code in ubuntu shell -> 
+
+#Hive Related Options
+export HIVE_HOME=/usr/local/hive
+export PATH=$PATH:$HIVE_HOME/bin
+
+###press Ctrl+X, Shift Y and Enter
+
+> source .bashrc
+> cd /usr/local/hive/bin
+> sudo nano hive-config.sh
+
+###now paste this code in ubuntu shell -> 
+
+export HADOOP_HOME=/usr/local/hadoop
+
+###press Ctrl+X, Shift Y and Enter
+
+> cd /home/universal_user
+> start-all.sh
+> hdfs dfs -mkdir /tmp
+> hdfs dfs -chmod g+w /tmp
+> hdfs dfs -ls /
+> hdfs dfs -mkdir -p /user/hive/warehouse
+> hdfs dfs -chmod g+w /user/hive/warehouse
+> hdfs dfs -ls /user/hive
+> ls
+> cd /usr/local/hive/bin
+> cd $HIVE_HOME/conf
+> nano hive-env.sh
+
+###now paste this code in ubuntu shell -> 
+
+HADOOP_HOME=/usr/local/hadoop
+
+###press Ctrl+X, Shift Y and Enter
+
+> schematool -initSchema -dbType derby
+> cd $HIVE_HOME
+> hive
+
+###now paste the commands in database shell -> 
+
+1. show databases;
+2. create database company;
+3. show databases;
+4. use company;
+5. create table employees (id int, name string, country string, department string, salary int)
+6.show tables;
+7. load data inpath '/home/hadoop/hive/employees.txt' overwrite into table employees;
+8. select * from employees;
+9. quit

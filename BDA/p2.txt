@@ -1,6 +1,7 @@
 ###Open cmd and start firing commands
 
-> wsl> mkdir MapReduce
+> wsl
+> mkdir MapReduce
 > cd MapReduce
 > touch word_count_data.txt
 > nano word_count_data.txt
@@ -23,7 +24,7 @@ for line in sys.stdin:
  line = line.strip()
  words = line.split()
  for word in words:
- print('%s\t%s' % (word, 1))
+  print('%s\t%s' % (word, 1))
 
 ###press Ctrl+X, Shift Y and Enter
 

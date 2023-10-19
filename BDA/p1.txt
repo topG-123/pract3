@@ -82,7 +82,7 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 
 sudo mkdir -p /app/hadoop/tmp
 
-sudo chown mehul_jadhav:hadoop /app/hadoop/tmp
+sudo chown universal_user:hadoop /app/hadoop/tmp
 
 nano core-site.xml
 
