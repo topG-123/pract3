@@ -1,0 +1,92 @@
+#Use this to remove any pre installation of MySQL Server
+
+sudo systemctl stop mysql
+sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+sudo rm -rf /etc/mysql /var/lib/mysql
+sudo apt autoremove
+sudo apt autoclean
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install mysql-server
+
+sudo service mysql start
+
+sudo mysql -u root -p
+
+alter user 'root'@'localhost' identified with mysql_native_password by 'a';
+alter user 'root'@'localhost' identified by 'a';
+flush privileges;
+quit;
+
+sudo mysql_secure_installation
+#setup Validate password component Press yIY for Yes, any other key for No: y 
+#Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0
+#Change the password for root? ((Press y|Y for Yes, any other key for No): n 
+#Remove anonymous users? (Press y|Y for Yes, any other key for No): y 
+#Disallow root login remotely? (Press ylY for Yes, any other key for No): y 
+#Remove the test database and access to it? (Press yIY for Yes, any other key for No): n 
+#Reload privilege tables now? (Press y|Y for Yes, any other key for No): y
+
+
+wget https://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop2.6.0.tar.gz
+
+tar xvzf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+
+nano ~/.bashrc
+#Add these lines
+export SQOOP_HOME=/home/hadoop/sqoop-1.4.7.bin__hadoop-2.6.0
+export PATH:$SQOOP_HOME/bin
+export CLASSPATH:$CLASSPATH:$SQOOP_HOME/lib/*
+
+cd $SQOOP_HOME/
+
+nano sqoop-env.sh
+#Add this line
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+
+chmod ugo+x sqoop-env.sh
+
+wget https://dev.mysql.com/get/Downloads/ConnectorJ/mysql-connector-java-8.0.28.tar.gz
+
+tar xvzf mysql-connector-java-8.0.28.tar.gz
+
+mv mysql-connector-java-8.0.28/ mysql-connectorjava-8.0.28.jar /home/Hadoop/downloads/sqoop-1.4.7.bin__hadoop-2.6.0/lib/
+
+wget https://dlcdn.apache.org//commons/lang/binaries/commons-lang-2.6-bin.tar.gz
+
+tar xzf commons-lang-2.6-bin.tar.gz
+
+mv commonslang-2.6.jar /home/hadoop/sqoop-1.4.7.bin__hadoop-2.6.0/lib
+
+sudo service mysql restart
+
+sudo mysql -u root -p
+#On prompting password enter a
+
+show databases;
+create database hr;
+use hr;
+create table student(id int primary key);
+insert into student values(10);
+insert into student values(20);
+select * from student;
+quit
+
+sudo service ssh restart
+ssh localhost
+start-all.sh
+jps
+
+hdfs dfs -rm -r hdfs://localhost:54310/user/[username]/student
+
+cd sqoop-1.4.7.bin__hadoop-2.6.0/
+
+sqoop listdatabases --connect jdbc:mysql://localhost --username root --password a
+
+sqoop list-tables --connect jdbc:mysql://localhost/hr --username root --password a
+
+sqoop import --connect jdbc:mysql://localhost/hr --username root --password a --table student --m 1 --bindir .
+
+stop-all.sh

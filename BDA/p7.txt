@@ -1,0 +1,29 @@
+nano sample.txt
+#Add these lines
+1, Sanvi, 20000, Lecturer
+2, Manoj, 25000, Accountant
+3, Rahul, 30000, IT
+
+cat sample.txt
+
+wget https://downloads.apache.org/pig/latest/pig-0.17.0.tar.gz
+
+tar -xvzf pig-0.17.0.tar.gz pig-0.17.0/
+
+chmod 777 pig-0.17.0
+
+mv pig-0.17.0 /usr/local/
+
+nano ~/.bashrc
+
+source ~/.bashrc
+
+pig
+quit
+
+pig -x local
+Employees = LOAD 'sample.txt' USING PigStorage(',') as (id:int, firstname:chararray, salary:int, dept:chararray);
+Dump Employees;
+Employees_Order = ORDER Employees BY salary DESC;
+Dump Employees_Order;
+quit

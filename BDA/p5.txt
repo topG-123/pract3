@@ -80,7 +80,7 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 1. scan 'test'
 2. exit
 
-###press Ctrl+X, Shift Y and Enter
+
 
 > cd /usr/local
 > sudo nano simple1.txt
@@ -95,8 +95,7 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 
 > hdfs dfs -copyFromLocal /usr/local/simple1.txt /
 > cd /usr/local/hbase/bin
-> ./hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator="," -
-Dimporttsv.columns=HBASE_ROW_KEY,cf test /simple1.txt
+> ./hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator="," -Dimporttsv.columns=HBASE_ROW_KEY,cf test /simple1.txt
 > ./hbase shell
 
 ###Execute below commands on HBase ->
@@ -105,9 +104,6 @@ Dimporttsv.columns=HBASE_ROW_KEY,cf test /simple1.txt
 2. exit
 
 ###press Ctrl+X, Shift Y and Enter
-
-1. scan 'test'
-2. exit
 
 > cd /usr/local/hbase/bin
 > ./hbase org.apache.hadoop.hbase.mapreduce.Export test /location
