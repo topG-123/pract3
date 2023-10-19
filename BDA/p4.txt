@@ -1,0 +1,21 @@
+###Open cmd and start firing commands
+
+> wsl
+> cd /usr/local
+> sudo wget https://archive.apache.org/dist/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
+> sudo tar -xvzf spark-3.2.1-bin-hadoop3.2.tgz
+> sudo mv spark-3.2.1-bin-hadoop3.2 spark
+> sudo chmod 777 spark
+> sudo nano ~/.bashrc
+
+###now paste this code in ubuntu shell ->
+
+export SPARK_HOME=/usr/local/spark
+export PATH=$PATH:$SPARK_HOME/bin
+
+###press Ctrl+X, Shift Y and Enter
+
+> source ~/.bashrc
+> spark-shell
+
+> :quit
