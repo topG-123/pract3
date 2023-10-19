@@ -45,7 +45,6 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
 5. scan 'test'
 6. exit
 
-###press Ctrl+X, Shift Y and Enter
 
 > ./stop-hbase.sh
 > cd /home/universal_user
