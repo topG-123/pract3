@@ -1,0 +1,117 @@
+###Open cmd and start firing commands
+
+> wsl
+> su universal_user
+> cd /usr/local
+> sudo wget https://archive.apache.org/dist/hbase/2.4.2/hbase-2.4.2-bin.tar.gz
+> sudo tar xzvf hbase-2.4.2-bin.tar.gz
+> sudo mv hbase-2.4.2 hbase
+> cd hbase/conf
+> sudo nano hbase-env.sh
+
+###now paste this code in ubuntu shell ->
+
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+
+###press Ctrl+X, Shift Y and Enter
+
+> sudo nano hbase-site.xml
+
+###now paste this code in ubuntu shell ->
+
+<property>
+<name>hbase.rootdir</name>
+<value>file:///usr/local/hbase</value>
+</property>
+<property>
+<name>hbase.zookeeper.property.dataDir</name>
+<value>/usr/local/hbase/zookeeper</value>
+</property>
+
+###press Ctrl+X, Shift Y and Enter
+
+> cd /usr/local
+> sudo chmod 777 hbase
+> cd /usr/local/hbase/bin
+> ./start-hbase.sh
+> ./hbase shell
+
+###Execute below commands on HBase ->
+
+1. create 'test', 'cf'
+2. put 'test', 'row1', 'cf:a', 'Mehul'
+3. put 'test', 'row2', 'cf:b', '04'
+4. put 'test', 'row3', 'cf:c', 'Mumbai'
+5. scan 'test'
+6. exit
+
+###press Ctrl+X, Shift Y and Enter
+
+> ./stop-hbase.sh
+> cd /home/universal_user
+> sudo apt install python3-pip
+> pip3 install happybase
+> cd /usr/local/hbase/bin
+> ./hbase-daemon.sh start thrift
+> ./start-hbase.sh
+> python3
+
+###Enter Python Syntax
+
+>>> import happybase as hb
+>>> conn=hb.Connection('127.0.0.1', 9090)
+>>> conn.table('test').row('row1')
+>>> conn.table('test').row('row2')
+>>> conn.table('test').row('row3')
+>>> exit()
+
+
+> ./stop-hbase.sh
+> ./hbase-daemon.sh stop thrift
+> sudo service ssh start
+> ssh localhost
+> /usr/local/hadoop/sbin/start-all.sh
+> jps
+> cd /usr/local/hbase/bin
+> ./start-hbase.sh
+> ./hbase shell
+
+###Execute below commands on HBase ->
+
+1. scan 'test'
+2. exit
+
+###press Ctrl+X, Shift Y and Enter
+
+> cd /usr/local
+> sudo nano simple1.txt
+
+###now paste this code in ubuntu shell ->
+
+1,Patkar
+2,Mithibai
+3,VIVA
+
+###press Ctrl+X, Shift Y and Enter
+
+> hdfs dfs -copyFromLocal /usr/local/simple1.txt /
+> cd /usr/local/hbase/bin
+> ./hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator="," -
+Dimporttsv.columns=HBASE_ROW_KEY,cf test /simple1.txt
+> ./hbase shell
+
+###Execute below commands on HBase ->
+
+1. scan 'test'
+2. exit
+
+###press Ctrl+X, Shift Y and Enter
+
+1. scan 'test'
+2. exit
+
+> cd /usr/local/hbase/bin
+> ./hbase org.apache.hadoop.hbase.mapreduce.Export test /location
+> hdfs dfs -ls /location
+> ./stop-hbase.sh
+> stop-all.sh
