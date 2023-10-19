@@ -1,0 +1,45 @@
+###Open cmd and start firing commands
+
+> wsl
+> cd /usr/local
+> sudo wget https://archive.apache.org/dist/flume/1.6.0/apache-flume-1.6.0-bin.tar.gz
+> sudo wget https://archive.apache.org/dist/flume/1.6.0/apache-flume-1.6.0-src.tar.gz
+> sudo tar zxvf apache-flume-1.6.0-bin.tar.gz
+> nano ~/.bashrc
+
+###now paste this code in ubuntu shell ->
+
+export FLUME_HOME=/usr/local/apache-flume-1.6.0-bin
+export PATH=$PATH:$FLUME_HOME/bin
+
+###press Ctrl+X, Shift Y and Enter
+
+> source ~/.bashrc
+> flume-ng version
+> cd apache-flume-1.6.0-bin/conf/
+> sudo touch flume.conf
+> sudo nano flume.conf
+
+###now paste this code in ubuntu shell in the end->
+
+agent1.sources = tail
+agent1.channels = Channel-2
+agent1.sinks = sink-1
+agent1.sources.tail.type = exec
+agent1.sources.tail.command = cat /home/monika/data
+agent1.sources.tail.channels = Channel-2
+agent1.sinks.sink-1.channel = Channel-2
+agent1.sinks.sink-1.type = hdfs
+agent1.sinks.sink-1.hdfs.path = hdfs://localhost:9000/flume01
+agent1.sinks.sink-1.hdfs.fileType = DataStream
+agent1.sinks.sink-1.hdfs.rollInterval = 60
+agent1.sinks.sink-1.hdfs.rollSize = 0
+agent1.sinks.sink-1.hdfs.rollCount = 0
+agent1.channels.Channel-2.type = memory
+
+
+###press Ctrl+X, Shift Y and Enter
+
+> cd /usr/local
+> cd apache-flume-1.6.0-bin
+> bin/flume-ng agent –conf ./conf/ -f conf/flume.conf -n agent1 -Dflume.root.logger=DEBUG
