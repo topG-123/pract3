@@ -1,0 +1,23 @@
+prac 1
+Installing and setting environment variables for Working with Apache Hadoop.
+
+prac 2
+Implementing Map-Reduce Program for Word Count problem
+
+prac 3
+Install Hive and use Hive Create and store structured databases.
+
+prac 4
+Download and install Spark.
+
+prac 5
+Install HBase and use the HBase Data model Store and retrieve data.
+
+prac 6
+Perform importing and exporting of data between SQL and Hadoop using Sqoop
+
+prac 7
+Write a Pig Script for solving counting problems.
+
+prac 8
+Install and Configure Flume. Use Flume and transport the data from the various sources to a centralized data store.
