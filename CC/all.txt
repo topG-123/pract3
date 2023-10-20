@@ -1,0 +1,330 @@
+
+
+######### p1a #########
+
+!pip install bcrypt
+import bcrypt
+
+Password= b'Patkar Varde College'
+Salt= bcrypt.gensalt()
+Hashed= bcrypt.hashpw(Password,Salt)
+
+print("salt: ",Salt)
+print("Hashed: ",Hashed)
+
+######### p1b #########
+
+import hashlib
+password = "Plain_Text"
+salt = "Password"
+dataBase_password = password + salt
+hashed = hashlib.md5(dataBase_password.encode())
+print(hashed.hexdigest())
+
+######### p2a #########
+
+
+import string
+
+all_letters = string.ascii_letters
+plain_txt = "Plain Text"
+dict1 = {}
+dict2 = {}
+cipher_txt = []
+decrypt_txt = []
+
+key = 4
+
+for i in range(len(all_letters)):
+  dict1[all_letters[i]] = all_letters[(i+key)%len(all_letters)]
+
+for i in range(len(all_letters)):
+  dict2[all_letters[i]] = all_letters[(i-key)%len(all_letters)]
+
+for char in plain_txt:
+  if char in all_letters:
+    temp = dict1[char]
+    cipher_txt.append(temp)
+
+  else:
+    temp = char
+    cipher_txt.append(temp)
+
+for char in cipher_txt:
+  if char in all_letters:
+    temp = dict2[char]
+    decrypt_txt.append(temp)
+
+  else:
+    temp = char
+    decrypt_txt.append(temp)
+
+cipher_txt = "".join(cipher_txt)
+print("cipher text in: ", cipher_txt)
+
+decrypt_txt = "".join(decrypt_txt)
+print("recovered to plain text: ", decrypt_txt)
+
+
+######### p2b #########
+
+
+def generateKey(string,key):
+    key = list(key)
+    if len(string) == len(key):
+        return (key)
+    else:
+        for i in range(len(string)- len(key)):
+            key.append(key[i % len(key)])
+    return("".join(key))
+
+def cipherText (string,key):
+    cipher_text = []
+    for i in range(len(string)):
+        x = (ord(string[i]) + ord(key[i])) %26
+        x += ord('A')
+        cipher_text.append(chr(x))
+    return("".join(cipher_text))
+
+def originialText (cipher_text,key):
+    orig_text = []
+    for i in range(len(cipher_text)):
+        x = (ord(cipher_text[i]) - ord(key[i]) + 26) %26
+        x += ord('A')
+        orig_text.append(chr(x))
+    return("".join(orig_text))
+
+if __name__ == "__main__":
+    string = "PLAINTEXT"
+    keyword = "ROLLNO"
+    key = generateKey(string, keyword)
+    cipher_text = cipherText(string, key)
+    print("Cipher text: ", cipher_text)
+    print("Original/Decrypted text: ", originialText (cipher_text,key))
+
+
+######### p2c #########
+
+def egcd(a,b):
+    x,y,u,v = 0,1,1,0
+    while a != 0:
+        q,r = b//a, b%a
+        m,n = x-u*q, y-v*q
+        b,a,x,y,u,v = a,r,u,v,m,n
+    gcd = b
+    return gcd, x, y
+
+def modinv(a,m):
+    gcd, x, y = egcd(a,m)
+    if gcd != 1:
+        return None
+    else:
+        return x % m
+
+def affine_encrypt(text, key):
+    return ''.join([chr (((key[0] * (ord(t) - ord('A')) + key[1]) % 26) + ord('A')) for t in text.upper().replace(' ', '') ])
+
+def affine_decrypt(cipher, key):
+    return ''.join([ chr((( modinv(key[0], 26) * (ord(c)-ord('A') - key[1])) % 26) + ord('A')) for c in cipher ])
+
+def main():
+    text = 'PLAIN TEXT'
+    key = [17,20]
+
+    affine_encrypted_text = affine_encrypt(text,key)
+
+    print("Encrypted Text: {}".format(affine_encrypted_text))
+    print("Decrypted Text: {}".format(affine_decrypt(affine_encrypted_text,key)))
+
+if __name__ == '__main__':
+    main()
+
+
+######### p3a #########
+
+
+from caesarcipher import CaesarCipher
+
+cipher = CaesarCipher('PLAINTEXT', offset=3)
+print(cipher.encoded)
+
+message = cipher.encoded.upper()
+LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+for key in range(len(LETTERS)):
+  translated=""
+  for symbol in message:
+    if symbol in LETTERS:
+      num = LETTERS.find(symbol) 
+      num = num - key
+      if num < 0:
+        num = num + len(LETTERS) 
+      translated = translated + LETTERS[num]
+    else:
+      translated=translated + symbol
+    print('Hacking key #%s:%s' % (key, translated))
+
+
+######### p3b #########
+
+
+def generateKey(string, key):
+    key = list(key)
+    if len(string) == len(key):
+        return(key)
+    else:
+        for i in range(len(string) - len(key)):
+            key.append(key[i % len(key)])
+        return("" . join(key))
+
+def cipherText(string, key):
+    cipher_text = []
+    for i in range(len(string)):
+        x = (ord(string[i]) + ord(key[i])) % 26
+        x += ord('A')
+        cipher_text.append(chr(x))
+    return("" . join(cipher_text))
+
+def originalText(cipher_text, key):
+    orig_text = []
+    for i in range(len(cipher_text)):
+        x = (ord(cipher_text[i]) - ord(key[i]) + 26) % 26
+        x += ord('A')
+        orig_text.append(chr(x))
+    return("" . join(orig_text))
+	
+if __name__ == "__main__":
+    string = input("Enter Plain Text: ")
+    string = string.upper()
+    keyword = input("Enter Key Text: ")
+    keyword = keyword.upper()
+    key = generateKey(string, keyword)
+    cipher_text = cipherText(string,key)
+    print("Ciphertext :", cipher_text)
+    print("Original/Decrypted Text :",originalText(cipher_text, key))
+
+
+######### p4 #########
+
+
+!pip install pyAesCrypt
+import pyAesCrypt
+bufferSize = 128 * 1024
+password = "Keyword"
+pyAesCrypt.encryptFile(r"/content/data.txt", "data.txt.aes",password,bufferSize)
+pyAesCrypt.decryptFile("data.txt.aes", "dataout.txt",password, bufferSize)
+
+
+######### p5 #########
+
+
+!pip install stegano
+from stegano import lsb
+secret = lsb.hide(r"/content/dog-puppy-on-garden-royalty-free-image.jpg","Message")
+secret.save(r"/content/encrypted.png")
+clear_message = lsb.reveal(r"/content/encrypted.png")
+print(clear_message)
+
+
+######### p6 #########
+
+
+import hashlib
+import hmac
+
+key = "Secret Key"
+message="Your Message"
+h = hmac.new(key.encode(), message.encode(), hashlib.sha512).hexdigest()
+print("HMAC Code for Verification of Msg:",h)
+
+
+######### p7 #########
+
+
+import rsa
+publicKey, privateKey = rsa.newkeys(512)
+message="Your Message"
+encMessage = rsa.encrypt(message.encode(),publicKey)
+print("original string:", message)
+print("encrypted string:", encMessage)
+decMessage = rsa.decrypt(encMessage, privateKey).decode()
+print("decrypted string:", decMessage)
+
+
+
+######### p8a #########
+
+
+!pip install pycryptodomex
+from elgamal.elgamal import Elgamal
+msg=b'Message'
+pb_k,pv_k=Elgamal.newkeys(16)
+print(pb_k)
+print(pv_k)
+Enc_msg=Elgamal.encrypt(msg,pb_k)
+print(Enc_msg)
+Dec_msg=Elgamal.decrypt(Enc_msg,pv_k)
+print(Dec_msg)
+
+
+######### p8b #########
+
+
+!pip install eciespy
+from ecies.utils import generate_eth_key
+from ecies import encrypt, decrypt
+import binascii
+
+privKey = generate_eth_key()
+privKeyHex = privKey.to_hex()
+pubKeyHex = privKey.public_key.to_hex()
+print("Encryption public key:", pubKeyHex)
+print("Decryption private key:", privKeyHex)
+plaintext = b'Message'
+print("Plaintext:", plaintext)
+encrypted = encrypt(pubKeyHex, plaintext)
+print("Encrypted:", binascii.hexlify(encrypted))
+decrypted = decrypt(privKeyHex, encrypted)
+print("Decrypted:", decrypted)
+
+
+######### p9a #########
+
+
+###Code for Client
+
+import socket
+
+host = 'local host'
+port = 5000
+s= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', port))
+s.listen()
+c,addr = s.accept()
+print("CONNECTION FROM:", str(addr))
+c.send(b"HELLO, how are you ?\
+        welcome to Hacking World")
+msg = "Tataaaaaaa......"
+c.send(msg.encode())
+c.close()
+
+
+
+######### p9b #########
+
+
+###Code For server
+
+import socket
+host = 'local host'
+port = 5000
+s= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(('127.0.0.1', port))
+msg = s.recv(1024)
+while msg:
+    print('Received:' + msg.decode())
+    msg = s.recv(1024)
+s.close()
+
+
+
