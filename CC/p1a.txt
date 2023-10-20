@@ -1,0 +1,9 @@
+!pip install bcrypt
+import bcrypt
+
+Password= b'Patkar Varde College'
+Salt= bcrypt.gensalt()
+Hashed= bcrypt.hashpw(Password,Salt)
+
+print("salt: ",Salt)
+print("Hashed: ",Hashed)

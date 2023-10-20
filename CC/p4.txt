@@ -1,0 +1,6 @@
+!pip install pyAesCrypt
+import pyAesCrypt
+bufferSize = 128 * 1024
+password = "Keyword"
+pyAesCrypt.encryptFile(r"/content/data.txt", "data.txt.aes",password,bufferSize)
+pyAesCrypt.decryptFile("data.txt.aes", "dataout.txt",password, bufferSize)

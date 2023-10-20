@@ -1,0 +1,6 @@
+!pip install stegano
+from stegano import lsb
+secret = lsb.hide(r"/content/dog-puppy-on-garden-royalty-free-image.jpg","Message")
+secret.save(r"/content/encrypted.png")
+clear_message = lsb.reveal(r"/content/encrypted.png")
+print(clear_message)
