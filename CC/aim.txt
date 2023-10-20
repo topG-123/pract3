@@ -1,0 +1,33 @@
+prac 1
+Program to implement password salting and hashing to create secure passwords
+
+prac 2
+Program to implement various classical ciphers- 
+A) Substitution Cipher, 
+B) Vigenère Cipher, 
+C) Affine cipher
+
+prac3
+Program to demonstrate cryptanalysis 
+A) breaking Caesar 
+B) Vigener Cipher
+
+parc 4
+Program to implement AES algorithm for file encryption and decryption
+
+prac 5
+Program to implement Steganography for hiding messages inside the image file
+
+prac 6
+Program to implement HMAC for signing messages.
+
+prac 7
+Program to implement RSA encryption/decryption
+
+prac 8
+Program to implement 
+A) El-Gamal Cryptosystem 
+B) Elliptic Curve Cryptography
+
+prac 9
+Program to implement Sending Secure Messages Over IP Networks
